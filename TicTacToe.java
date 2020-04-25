@@ -8,31 +8,92 @@ public class TicTacToe
 		{
 			for(int j=0;j<3;j++)
 			{
-				System.out.print(board[i][j]);
+				System.out.print("		"+board[i][j]+" ");
 			}
 			System.out.println(" ");
 		}
 	}
+	public static void Replace(char board[][],char find,char replace)
+	{
+		for(int i=0;i<3;i++)
+		{
+			for (int j=0;j<3;j++)
+			{
+				if(board[i][j]==find)
+				{
+					board[i][j]=replace;
+					return;
+				}
+			}
+		}
+	}
+	public void checkForwin(char board[][])
+	{
+		for(int i=0;i<3;i++)
+		{
+			if(board[i][1]==player1marker&&board[i][2]==player1marker&&board[i][3]==player1marker)
+			{
+				System.out.println("game over");
+				System.out.println("The winner is :"+player1);
+			}
+			else if(board[i][1]==player1marker&&board[i][2]==player1marker&&board[i][3]==player1marker)
+			{
+				System.out.println("game over");
+				System.out.println("The winner is :"+player1);
+			}
+		}
+	}
 	public static void main(String[] args)
 	{
+		TicTacToe game=new TicTacToe();
+		String player1,player2;
 		Scanner in=new Scanner(System.in);
 		System.out.println("Enter the 1st player name :");
-		String player1=in.nextLine();
+		player1=in.nextLine();
 		System.out.println("Enter the 2nd player name :");
-		String player2=in.nextLine();
+		player2=in.nextLine();
 		System.out.println("Enter the 1st player marker between(X/0) :");
-		Char player1marker=in.nextChar();
-		System.out.println("Enter the 2nd player marker between(X/0) :");
-		char player2marker=in.nextChar();
-		TicTacToe game=new TicTacToe();
-		int count=0;
+		char player1marker=in.nextLine().charAt(0);
+		char player2marker;
+		while (player1marker != 'X'&& player1marker != 'x'&& player1marker != '0') {
+			System.out.print("Invalid input,Enter correct marker :");
+			player1marker=in.nextLine().charAt(0);
+		}
+		if(player1marker == 'X'|| player1marker == 'x')
+		{
+			player2marker='0';
+		}
+		else
+		{
+			player2marker='X';
+		}
+		int count=1;
 		for (int i=0;i<3;i++)
 		{
 			for(int j=0;j<3;j++)
 			{
-				game.board[i][j]=(char)count++;
+				game.board[i][j]=(char)(count++ +'0');
 			}
 		}
 		Display(game.board);
+		for (int i=0;i<4;i++)
+		{
+			System.out.print(player1+" turn : ");
+			char choice=in.nextLine().charAt(0);
+			Replace(game.board,choice,player1marker);
+			Display(game.board);
+			checkForwin(board);
+			System.out.print(player2+" turn : ");
+			choice=in.nextLine().charAt(0);
+			Replace(game.board,choice,player2marker);
+			Display(game.board);
+			checkForwin(board);
+		}
+		System.out.print(player1+" turn : ");
+		char choice=in.nextLine().charAt(0);
+		Replace(game.board,choice,player1marker);
+		Display(game.board);
+		checkForwin(board);
 	}
+
 }
