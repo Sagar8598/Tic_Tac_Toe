@@ -1,6 +1,7 @@
 import java.util.Scanner;
 public class TicTacToe
 {
+  Scanner in=new Scanner(System.in);
   char board[][]=new char [3][3];
   public static void Display(char board[][])
   {
@@ -26,6 +27,27 @@ public class TicTacToe
         }
       }
     }
+  }
+  public int check(int ch[],int num,char choice)
+  {
+    if(ch[(num)]>0&&ch[num]<10)
+      {
+      	for(int j=0;j<num;j++)
+      	{
+      		if(ch[num]==ch[j])
+      		{
+      			System.out.println("Invalid input,enter again");
+      			choice=in.nextLine().charAt(0);
+      			check(ch,num,choice);
+      		}
+      	}
+      }
+      else
+      {
+      	System.out.println("Invalid input,enter again : ");
+      	choice=in.nextLine().charAt(0);
+      }
+      return 0;
   }
   public int checkForwin(char board[][],String player1,String player2,char player1marker,char player2marker,String fav1 ,String fav2)
   {
@@ -139,22 +161,7 @@ public class TicTacToe
       System.out.print(player1+" turn : ");
       char choice=in.nextLine().charAt(0);
       ch[num]=(choice-'0');
-      if(ch[(num)]>0&&ch[num]<10)
-      {
-      	for(int j=0;j<num;j++)
-      	{
-      		if(ch[num]==ch[j])
-      		{
-      			System.out.println("Invalid input,enter again");
-      			choice=in.nextLine().charAt(0);
-      		}
-      	}
-      }
-      else
-      {
-      	System.out.println("Invalid input,enter again : ");
-      	choice=in.nextLine().charAt(0);
-      }
+      game.check(ch,num,choice);
       num++;
       Replace(game.board,choice,player1marker);
       Display(game.board);
@@ -166,22 +173,8 @@ public class TicTacToe
       System.out.print(player2+" turn : ");
       choice=in.nextLine().charAt(0);
       ch[num]=(choice-'0');
-      if(ch[num]>0&&ch[(num)]<10)
-      {
-      	for(int j=0;j<num;j++)
-      	{
-      		if(ch[i+1]==ch[j])
-      		{
-      			System.out.println("Invalid input,enter again :");
-      			choice=in.nextLine().charAt(0);
-      		}
-      	}
-      }
-      else
-      {
-      	System.out.println("Invalid input,enter again");
-      	choice=in.nextLine().charAt(0);
-      }
+      game.check(ch,num,choice);
+      num++;
       Replace(game.board,choice,player2marker);
       Display(game.board);
       re=game.checkForwin(game.board,player1,player2,player1marker,player2marker,fav1,fav2);
@@ -195,22 +188,7 @@ public class TicTacToe
 		System.out.print(player1+" turn : ");
     	char choice=in.nextLine().charAt(0);
     	ch[9]=choice-'0';
-    	if(ch[9]>0&&ch[9]<10)
-      {
-      	for(int j=0;j<=9;j++)
-      	{
-      		if(ch[9]==ch[j])
-      		{
-      			System.out.println("Invalid input,enter again");
-      			choice=in.nextLine().charAt(0);
-      		}
-      	}
-      }
-      else
-      {
-      	System.out.println("Invalid input,enter again");
-      	choice=in.nextLine().charAt(0);
-      }
+    	game.check(ch,num,choice);
     	Replace(game.board,choice,player1marker);
     	Display(game.board);
     	re=game.checkForwin(game.board,player1,player2,player1marker,player2marker,fav1,fav2);
