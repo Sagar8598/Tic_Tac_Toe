@@ -27,13 +27,14 @@ public class TicTacToe
       }
     }
   }
-  public int checkForwin(char board[][],String player1,String player2,char player1marker,char player2marker)
+  public int checkForwin(char board[][],String player1,String player2,char player1marker,char player2marker,String fav1 ,String fav2)
   {
     for(int i=0;i<3;i++)
     {
       if(board[i][0]==player1marker&&board[i][1]==player1marker&&board[i][2]==player1marker)
       {
         System.out.println("game over");
+        System.out.println("The favourite colour of "+player1+" is :"+fav1);
         System.out.println("The winner is :"+player1);
         return 1;
       }
@@ -41,6 +42,7 @@ public class TicTacToe
       {
         System.out.println("game over");
         System.out.println("The winner is :"+player1);
+        System.out.println("The favourite colour of "+player1+" is :"+fav1);
         return 1;
       }
     }
@@ -48,12 +50,14 @@ public class TicTacToe
       {
         System.out.println("game over");
         System.out.println("The winner is :"+player1);
+        System.out.println("The favourite colour of "+player1+" is :"+fav1);
         return 1;
       }
       else if(board[0][2]==player1marker&&board[1][1]==player1marker&&board[2][0]==player1marker)
       {
         System.out.println("game over");
         System.out.println("The winner is :"+player1);
+        System.out.println("The favourite colour of "+player1+" is :"+fav1);
         return 1;
       }
 
@@ -63,12 +67,14 @@ public class TicTacToe
       {
         System.out.println("game over");
         System.out.println("The winner is :"+player2);
+        System.out.println("The favourite colour of "+player2+" is :"+fav2);
         return 1;
       }
       else if(board[0][i]==player2marker&&board[1][i]==player2marker&&board[2][i]==player2marker)
       {
         System.out.println("game over");
         System.out.println("The winner is :"+player2);
+        System.out.println("The favourite colour of "+player2+" is :"+fav2);
         return 1;
       }
     }
@@ -76,12 +82,14 @@ public class TicTacToe
       {
         System.out.println("game over");
         System.out.println("The winner is :"+player2);
+        System.out.println("The favourite colour of "+player2+" is :"+fav2);
         return 1;
       }
       else if(board[0][2]==player2marker&&board[1][1]==player2marker&&board[2][0]==player2marker)
       {
         System.out.println("game over");
         System.out.println("The winner is :"+player2);
+        System.out.println("The favourite colour of "+player2+" is :"+fav2);
         return 1;
       }
       return 0;
@@ -93,8 +101,12 @@ public class TicTacToe
     Scanner in=new Scanner(System.in);
     System.out.println("Enter the 1st player name :");
     player1=in.nextLine();
+    System.out.println("Enter the "+player1+"'s favourite colour :");
+    String fav1=in.nextLine();
     System.out.println("Enter the 2nd player name :");
     player2=in.nextLine();
+    System.out.println("Enter the "+player2+"'s favourite colour :");
+    String fav2=in.nextLine();
     System.out.println("Enter the 1st player marker between(X/0) :");
     char player1marker=in.nextLine().charAt(0);
     char player2marker;
@@ -121,18 +133,19 @@ public class TicTacToe
     Display(game.board);
     int ch[]=new int [10];
     int re=0;
+    int num=0;
     for (int i=0;i<4;i++)
     {
       System.out.print(player1+" turn : ");
       char choice=in.nextLine().charAt(0);
-      ch[(i+i)]=(choice-'0');
-      if(ch[(i+i)]>0&&ch[(i+i)]<10)
+      ch[num]=(choice-'0');
+      if(ch[(num)]>0&&ch[num]<10)
       {
-      	for(int j=0;j<i;j++)
+      	for(int j=0;j<num;j++)
       	{
-      		if(ch[(i+i)]==ch[j])
+      		if(ch[num]==ch[j])
       		{
-      			System.out.println("Invalid input,enter again : ");
+      			System.out.println("Invalid input,enter again");
       			choice=in.nextLine().charAt(0);
       		}
       	}
@@ -142,19 +155,20 @@ public class TicTacToe
       	System.out.println("Invalid input,enter again : ");
       	choice=in.nextLine().charAt(0);
       }
+      num++;
       Replace(game.board,choice,player1marker);
       Display(game.board);
-      re=game.checkForwin(game.board,player1,player2,player1marker,player2marker);
+      re=game.checkForwin(game.board,player1,player2,player1marker,player2marker,fav1,fav2);
       if(re==1)      
       {
         break;
       }
       System.out.print(player2+" turn : ");
       choice=in.nextLine().charAt(0);
-      ch[(i+i+1)]=(choice-'0');
-      if(ch[(i+i+1)]>0&&ch[(i+i+1)]<10)
+      ch[num]=(choice-'0');
+      if(ch[num]>0&&ch[(num)]<10)
       {
-      	for(int j=0;j<i+1;j++)
+      	for(int j=0;j<num;j++)
       	{
       		if(ch[i+1]==ch[j])
       		{
@@ -170,7 +184,7 @@ public class TicTacToe
       }
       Replace(game.board,choice,player2marker);
       Display(game.board);
-      re=game.checkForwin(game.board,player1,player2,player1marker,player2marker);
+      re=game.checkForwin(game.board,player1,player2,player1marker,player2marker,fav1,fav2);
       if(re==1)      
       {
         break;
@@ -199,7 +213,7 @@ public class TicTacToe
       }
     	Replace(game.board,choice,player1marker);
     	Display(game.board);
-    	re=game.checkForwin(game.board,player1,player2,player1marker,player2marker);
+    	re=game.checkForwin(game.board,player1,player2,player1marker,player2marker,fav1,fav2);
     	System.out.println("Match draw");
     }
   }
